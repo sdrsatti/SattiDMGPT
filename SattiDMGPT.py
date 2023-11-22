@@ -64,7 +64,7 @@ prompt = input_prompt
 
 if st.button(label='Submit'):
     if input_prompt != '':
-        st.write("Thinking...")
+        st.write("Thinking...(may take up to a minute)")
         answer = getanswer(prompt)
         st.write(answer)
 
