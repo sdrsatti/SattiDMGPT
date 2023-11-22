@@ -49,7 +49,7 @@ def getanswer(question):
   return(answer)
 
 
-st.set_page_config(page_title='Satti Diabetes GPT', page_icon=':robot')
+st.set_page_config(page_title='Satti Diabetes GPT', page_icon='robot')
 
 
 st.header('Satti DM GPT')
