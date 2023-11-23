@@ -11,24 +11,28 @@ from openai import OpenAI
 import streamlit as st
 import time
 
-
 client = OpenAI()
 
-assistant = "asst_2X2nmWYsG2q1r9T7cW8feh17"
+assistant = client.beta.assistants.create(
+    name="SattiDMAI",
+    instructions="You are a senior endocrinologist with a specialized interest in the diagnosis and management of diabetes. Give complete and through answers using the files uploaded and only answer medical questions.",
+    tools=[{"type": "retrieval"}],
+    file_ids=['file-GFSQ4TYFjfsoEFi3mwhWMsAL'],
+    model="gpt-4-1106-preview"
+)
 
-thread = "thread_HEoGxA3MMmDgceFKu3vvYkQT"
+thread = client.beta.threads.create()
 
 def getanswer(question):
 
   message = client.beta.threads.messages.create(
-      thread_id=thread,
+      thread_id=thread.id,
       role="user",
-      #file_ids=['file-GFSQ4TYFjfsoEFi3mwhWMsAL'],
       content= question
   )
 
   run = client.beta.threads.runs.create(
-    thread_id=thread,
+    thread_id=thread.id,
     assistant_id=assistant,
     instructions="Give complete and through answers using the files uploaded and only answer medical questions"
   )
@@ -36,12 +40,12 @@ def getanswer(question):
   while run.status != "completed":
       time.sleep(1)
       run = client.beta.threads.runs.retrieve(
-      thread_id=thread,
+      thread_id=thread.id,
       run_id=run.id
   )
 
   messages = client.beta.threads.messages.list(
-    thread_id=thread
+    thread_id=thread.id
   )
 
   answer = messages.data[0].content[0].text.value
