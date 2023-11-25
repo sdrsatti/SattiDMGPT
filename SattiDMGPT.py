@@ -13,13 +13,18 @@ import time
 
 client = OpenAI()
 
-assistant = client.beta.assistants.create(
-    name="SattiDMAI",
-    instructions="You are a senior endocrinologist with a specialized interest in the diagnosis and management of diabetes. Give complete and through answers using the files uploaded and only answer medical questions.",
-    tools=[{"type": "retrieval"}],
-    file_ids=['file-GFSQ4TYFjfsoEFi3mwhWMsAL'],
-    model="gpt-4-1106-preview"
-)
+assistant_id = 'asst_KxO9ICzlJqmm0GYNxlKEzRUE'
+
+assistant = client.beta.assistants.retrieve(
+    assistant_id=assistant_id
+
+# assistant = client.beta.assistants.create(
+#     name="SattiDMAI",
+#     instructions="You are a senior endocrinologist with a specialized interest in the diagnosis and management of diabetes. Give complete and through answers using the files uploaded and only answer medical questions.",
+#     tools=[{"type": "retrieval"}],
+#     file_ids=['file-GFSQ4TYFjfsoEFi3mwhWMsAL'],
+#     model="gpt-4-1106-preview"
+# )
 
 thread = client.beta.threads.create()
 
