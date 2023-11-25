@@ -17,6 +17,7 @@ assistant_id = 'asst_KxO9ICzlJqmm0GYNxlKEzRUE'
 
 assistant = client.beta.assistants.retrieve(
     assistant_id=assistant_id
+)
 
 # assistant = client.beta.assistants.create(
 #     name="SattiDMAI",
